@@ -13,7 +13,6 @@ import time
 import gc
 import os
 
-# haptik imports
 from inputHandler import create_train_dev_set
 from config import siamese_config
 
