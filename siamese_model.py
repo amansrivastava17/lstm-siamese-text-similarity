@@ -34,16 +34,15 @@ CONFIG.validation_split_ratio = siamese_config['VALIDATION_SPLIT']
 
 def train_seimese_model(sentences_pair, is_similar, embedding_meta_data, model_save_directory='./'):
     """
-    Train Siamese network to find similarity between sentences in `sentences1` and `sentences2`
+    Train Siamese network to find similarity between sentences in `sentences_pair`
         Steps Involved:
-            1. Pass the each of sentences from sentences1 and sentences2 to bidirectional LSTM encoder.
+            1. Pass the each from sentences_pairs  to bidirectional LSTM encoder.
             2. Merge the vectors from LSTM encodes and passed to dense layer.
             3. Pass the  dense layer vectors to sigmoid output layer.
             4. Use cross entropy loss to train weights
     Args:
         sentences_pair (list): list of tuple of sentence pairs
-        is_similar (list): output value as respective sentences in
-                            sentences1 and sentences2 are similar or not (1 if same else 0)
+        is_similar (list): target value 1 if same sentences pair are similar otherwise 0
         embedding_meta_data (dict): dict containing tokenizer and word embedding matrix
         model_save_directory (str): working directory for where to save models
 
@@ -122,17 +121,16 @@ def train_seimese_model(sentences_pair, is_similar, embedding_meta_data, model_s
 
 def update_siamese_model(saved_model_path, new_sentences_pair, is_similar, embedding_meta_data):
     """
-    Update trained siamese model for new given sentences1 and sentences2
+    Update trained siamese model for given new sentences pairs 
         Steps Involved:
-            1. Pass the each of sentences from sentences1 and sentences2 to bidirectional LSTM encoder.
+            1. Pass the each from sentences from new_sentences_pair to bidirectional LSTM encoder.
             2. Merge the vectors from LSTM encodes and passed to dense layer.
             3. Pass the  dense layer vectors to sigmoid output layer.
             4. Use cross entropy loss to train weights
     Args:
         model_path (str): model path of already trained siamese model
         new_sentences_pair (list): list of tuple of new sentences pairs
-        is_similar (list): output value as respective sentences in
-                            sentences1 and sentences2 are similar or not (1 if same else 0)
+        is_similar (list): target value 1 if same sentences pair are similar otherwise 0
         embedding_meta_data (dict): dict containing tokenizer and word embedding matrix
 
     Returns:
