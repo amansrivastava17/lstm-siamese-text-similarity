@@ -3,7 +3,7 @@
 Siamese neural network is a class of **neural network architectures that contain two or more** **identical** **subnetworks**. *identical* here means they have the same configuration with the same parameters 
 and weights. Parameter updating is mirrored across both subnetworks.
 
-It is a keras based implementation of deep siamese Bodirectional LSTM network to capture phrase/sentence similarity using word embeddings.
+It is a keras based implementation of deep siamese Bidirectional LSTM network to capture phrase/sentence similarity using word embeddings.
 
 Below is the architecture description for the same.
 
@@ -47,6 +47,8 @@ del sentences2
 ######## Training ########
 best_model_path = train_seimese_model(sentences_pair, is_similar, embedding_meta_data, model_save_directory='./')
 ```
+
+#### Testing
 
 ```python
 from operator import itemgetter
