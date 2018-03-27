@@ -1,4 +1,4 @@
-from siamese_model import train_seimese_model
+from model import SiameseBiLSTM
 from inputHandler import word_embed_meta_data, create_test_data
 from config import siamese_config
 
@@ -42,7 +42,26 @@ del sentences2
 ######## Training ########
 ##########################
 
-best_model_path = train_seimese_model(sentences_pair, is_similar, embedding_meta_data, model_save_directory='./')
+from config import siamese_config
+
+
+class Configuration(object):
+    """Dump stuff here"""
+
+CONFIG = Configuration()
+CONFIG.embedding_dim = siamese_config['EMBEDDING_DIM']
+CONFIG.max_sequence_length = siamese_config['MAX_SEQUENCE_LENGTH']
+CONFIG.number_lstm_units = siamese_config['NUMBER_LSTM']
+CONFIG.rate_drop_lstm = siamese_config['RATE_DROP_LSTM']
+CONFIG.number_dense_units = siamese_config['NUMBER_DENSE_UNITS']
+CONFIG.activation_function = siamese_config['ACTIVATION_FUNCTION']
+CONFIG.rate_drop_dense = siamese_config['RATE_DROP_DENSE']
+CONFIG.validation_split_ratio = siamese_config['VALIDATION_SPLIT']
+
+siamese = SiameseBiLSTM(CONFIG.embedding_dim , CONFIG.max_sequence_length, CONFIG.number_lstm_units , CONFIG.number_dense_units, 
+					    CONFIG.rate_drop_lstm, CONFIG.rate_drop_dense, CONFIG.activation_function, CONFIG.validation_split_ratio)
+
+best_model_path = siamese.train_model(sentences_pair, is_similar, embedding_meta_data, model_save_directory='./')
 
 
 ########################
