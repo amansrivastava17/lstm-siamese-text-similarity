@@ -16,7 +16,7 @@ Below is the architecture description for the same.
 #### Training
 
 ```python
-from siamese_model import train_seimese_model
+from model import SiameseBiLSTM
 from inputHandler import word_embed_meta_data, create_test_data
 from config import siamese_config
 import pandas as pd
