@@ -116,7 +116,7 @@ class SiameseBiLSTM:
         return bst_model_path
 
 
-    def update_model(saved_model_path, new_sentences_pair, is_similar, embedding_meta_data):
+    def update_model(self, saved_model_path, new_sentences_pair, is_similar, embedding_meta_data):
         """
         Update trained siamese model for given new sentences pairs 
             Steps Involved:
