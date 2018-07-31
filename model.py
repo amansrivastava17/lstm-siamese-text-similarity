@@ -29,7 +29,7 @@ class SiameseBiLSTM:
         self.rate_drop_dense = rate_drop_dense
         self.validation_split_ratio = validation_split_ratio
 
-    def train_model(sentences_pair, is_similar, embedding_meta_data, model_save_directory='./'):
+    def train_model(self, sentences_pair, is_similar, embedding_meta_data, model_save_directory='./'):
         """
         Train Siamese network to find similarity between sentences in `sentences_pair`
             Steps Involved:
