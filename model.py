@@ -25,7 +25,7 @@ class SiameseBiLSTM:
         self.number_lstm_units = number_lstm
         self.rate_drop_lstm = rate_drop_lstm
         self.number_dense_units = number_dense
-        self.activation_function = activation_function
+        self.activation_function = hidden_activation
         self.rate_drop_dense = rate_drop_dense
         self.validation_split_ratio = validation_split_ratio
 
