@@ -78,7 +78,7 @@ class SiameseBiLSTM:
 
         # Creating leaks input
         leaks_input = Input(shape=(leaks_train.shape[1],))
-        leaks_dense = Dense(self.number_dense_units/2, activation=self.activation_function)(leaks_input)
+        leaks_dense = Dense(int(self.number_dense_units/2), activation=self.activation_function)(leaks_input)
 
         # Merging two LSTM encodes vectors from sentences to
         # pass it to dense layer applying dropout and batch normalisation
