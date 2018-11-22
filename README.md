@@ -11,7 +11,11 @@ Below is the architecture description for the same.
 
 
 
-## Usage
+#### Install dependencies
+
+`pip install -r requirements.txt`
+
+### Usage
 
 #### Training
 
