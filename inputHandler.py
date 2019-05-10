@@ -10,7 +10,6 @@ def train_word2vec(documents, embedding_dim):
     train word2vector over traning documents
     Args:
         documents (list): list of document
-        min_count (int): min count of word in documents to consider for word vector creation
         embedding_dim (int): outpu wordvector size
     Returns:
         word_vectors(dict): dict containing words and their respective vectors
@@ -55,6 +54,7 @@ def word_embed_meta_data(documents, embedding_dim):
         tokenizer (keras.preprocessing.text.Tokenizer): keras tokenizer object
         embedding_matrix (dict): dict with word_index and vector mapping
     """
+    documents = [x.lower() for x in documents]
     tokenizer = Tokenizer()
     tokenizer.fit_on_texts(documents)
     word_vector = train_word2vec(documents, embedding_dim)
@@ -62,7 +62,6 @@ def word_embed_meta_data(documents, embedding_dim):
     del word_vector
     gc.collect()
     return tokenizer, embedding_matrix
-
 
 
 def create_train_dev_set(tokenizer, sentences_pair, is_similar, max_sequence_length, validation_split_ratio):
@@ -87,8 +86,8 @@ def create_train_dev_set(tokenizer, sentences_pair, is_similar, max_sequence_len
         labels_val (np.array): array containing similarity score for validation data
         leaks_val (np.array): array of validation leaks features
     """
-    sentences1 = [x[0] for x in sentences_pair]
-    sentences2 = [x[1] for x in sentences_pair]
+    sentences1 = [x[0].lower() for x in sentences_pair]
+    sentences2 = [x[1].lower() for x in sentences_pair]
     train_sequences_1 = tokenizer.texts_to_sequences(sentences1)
     train_sequences_2 = tokenizer.texts_to_sequences(sentences2)
     leaks = [[len(set(x1)), len(set(x2)), len(set(x1).intersection(x2))]
@@ -131,8 +130,8 @@ def create_test_data(tokenizer, test_sentences_pair, max_sequence_length):
         test_data_1 (list): list of input features for training set from sentences1
         test_data_2 (list): list of input features for training set from sentences2
     """
-    test_sentences1 = [x[0] for x in test_sentences_pair]
-    test_sentences2 = [x[1] for x in test_sentences_pair]
+    test_sentences1 = [x[0].lower() for x in test_sentences_pair]
+    test_sentences2 = [x[1].lower() for x in test_sentences_pair]
 
     test_sequences_1 = tokenizer.texts_to_sequences(test_sentences1)
     test_sequences_2 = tokenizer.texts_to_sequences(test_sentences2)
