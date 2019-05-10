@@ -2,7 +2,6 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing.text import Tokenizer
 from gensim.models import Word2Vec
 import numpy as np
-import pickle
 import gc
 
 
@@ -16,7 +15,8 @@ def train_word2vec(documents, embedding_dim):
     Returns:
         word_vectors(dict): dict containing words and their respective vectors
     """
-    model = Word2Vec(documents, min_count=1, size=embedding_dim)
+    words_document = [sent.split() for sent in documents]
+    model = Word2Vec(words_document, min_count=1, size=embedding_dim)
     word_vectors = model.wv
     del model
     return word_vectors
@@ -56,7 +56,7 @@ def word_embed_meta_data(documents, embedding_dim):
         embedding_matrix (dict): dict with word_index and vector mapping
     """
     tokenizer = Tokenizer()
-    tokenizer.fit_on_texts(" ".join(documents))
+    tokenizer.fit_on_texts(documents)
     word_vector = train_word2vec(documents, embedding_dim)
     embedding_matrix = create_embedding_matrix(tokenizer, word_vector, embedding_dim)
     del word_vector
