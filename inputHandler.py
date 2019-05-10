@@ -37,9 +37,12 @@ def create_embedding_matrix(tokenizer, word_vectors, embedding_dim):
     embedding_matrix = np.zeros((nb_words, embedding_dim))
     print("Embedding matrix shape: %s" % str(embedding_matrix.shape))
     for word, i in word_index.items():
-        embedding_vector = word_vectors[word]
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
+        try:
+            embedding_vector = word_vectors[word]
+            if embedding_vector is not None:
+                embedding_matrix[i] = embedding_vector
+        except KeyError:
+            print("vector not found for word - %s" % word)
     print('Null word embeddings: %d' % np.sum(np.sum(embedding_matrix, axis=1) == 0))
     return embedding_matrix
 
@@ -49,7 +52,7 @@ def word_embed_meta_data(documents, embedding_dim):
     Load tokenizer object for given vocabs list
     Args:
         documents (list): list of document
-
+        embedding_dim (int): embedding dimension
     Returns:
         tokenizer (keras.preprocessing.text.Tokenizer): keras tokenizer object
         embedding_matrix (dict): dict with word_index and vector mapping
