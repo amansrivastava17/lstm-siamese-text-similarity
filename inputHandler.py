@@ -14,8 +14,7 @@ def train_word2vec(documents, embedding_dim):
     Returns:
         word_vectors(dict): dict containing words and their respective vectors
     """
-    words_document = [sent.split() for sent in documents]
-    model = Word2Vec(words_document, min_count=1, size=embedding_dim)
+    model = Word2Vec(documents, min_count=1, size=embedding_dim)
     word_vectors = model.wv
     del model
     return word_vectors
@@ -57,7 +56,7 @@ def word_embed_meta_data(documents, embedding_dim):
         tokenizer (keras.preprocessing.text.Tokenizer): keras tokenizer object
         embedding_matrix (dict): dict with word_index and vector mapping
     """
-    documents = [x.lower() for x in documents]
+    documents = [x.lower().split() for x in documents]
     tokenizer = Tokenizer()
     tokenizer.fit_on_texts(documents)
     word_vector = train_word2vec(documents, embedding_dim)
